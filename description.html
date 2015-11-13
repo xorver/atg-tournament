@@ -1,0 +1,196 @@
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Kodowanie znaków</title>
+</head>
+<body>
+
+<h2>Projekt z semestru zimowego 2015: algorytmiczny poker </h2>
+
+
+<h3> Zasady gry</h3>
+W grze algorytmiczny poker przy stole zasiada 3 uczestników. Każdy z
+graczy rozpoczyna rozdanie posiadając 200 żetonów.
+<ul>
+    <li><b>Rozdanie kart</b></li>
+    Gracz początkowo otrzymuje jedną, widoczną tylko dla siebie, kartę o
+    wartości będącej liczbą całkowitą z przedziału [0,9].
+    <li><b>Licytacja 1</b></li>
+    Następnie ma miejsce pierwsza runda licytacji, w której wszyscy gracze
+    równocześnie deklarują za ile chcą zagrać, minimalny udział wynosi 10, więc
+    dopuszczalne są zagrania z przedziału [10, 200].
+    <li><b>Sprawdzenie 1</b></li>
+    W przypadku gdy wartości się różnią, gracze którzy obstawili poniżej
+    maksymalnego przebicia, równocześnie decydują czy chcą dopłacić do wyższej
+    wartości i nadal brać udział w rozdaniu.
+    <li><b>Licytacja 2</b></li>
+    Jeśli w grze pozostało przynajmniej 2 graczy, następuje druga runda
+    licytacji. Przebiega ona w analogiczny sposób, z tym, że minimalny udział
+    pozostaje na poziomie wylicytowanej w poprzedniej rundzie wartości.
+    <li><b>Sprawdzenie 2</b></li>
+    Ponownie gracze z niższymi wartościami decydują czy chcą dołożyć brakujące
+    żetony i nadal brać udział w rozdaniu.
+    <li><b>Okazanie kart</b></li>
+    W przypadku gdy w grze pozostało przynajmniej 2 graczy, gracze pokazują
+    karty i wygrywa ten który posiada najwyższy numer (remis powoduje równy
+    podział puli).
+
+    Dodatkowo jeśli w którymkolwiek momencie, w grze pozostanie tylko jeden
+    gracz, wygrywa on aktualnie wylicytowaną pulę.
+    <li><b>Podsumowanie</b></li>
+    Wygrane/przegrane żetony zostają dodane/odjęte do sumarycznego wyniku
+    graczy, a następne rozdanie każdy z nich zaczyna ze stanem konta równym
+    200.
+</ul>
+
+<h3>Przykładowa rozgrywka</h3>
+
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+    }
+
+    .tg th {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+    }
+
+    .tg .tg-baqh {
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-yw4l {
+        vertical-align: top
+    }
+
+    .tg .tg-9hbo {
+        font-weight: bold;
+        vertical-align: top
+    }
+
+    .tg .tg-jogk {
+        font-style: italic;
+        vertical-align: top
+    }
+</style>
+<table class="tg">
+    <tr>
+        <th class="tg-yw4l"></th>
+        <th class="tg-9hbo">Gracz A</th>
+        <th class="tg-9hbo">Gracz B</th>
+        <th class="tg-9hbo">Gracz C</th>
+    </tr>
+    <tr>
+        <td class="tg-jogk">żetony</td>
+        <td class="tg-baqh">200</td>
+        <td class="tg-baqh">200</td>
+        <td class="tg-baqh">200</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">karta</td>
+        <td class="tg-baqh">3</td>
+        <td class="tg-baqh">7</td>
+        <td class="tg-baqh">9</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">licytacja 1</td>
+        <td class="tg-baqh">20</td>
+        <td class="tg-baqh">50</td>
+        <td class="tg-baqh">65</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">sprawdzenie 1</td>
+        <td class="tg-baqh">NIE</td>
+        <td class="tg-baqh">TAK</td>
+        <td class="tg-baqh">-</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">licytacja 2</td>
+        <td class="tg-baqh">-</td>
+        <td class="tg-baqh">65</td>
+        <td class="tg-baqh">120</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">sprawdzenie 2</td>
+        <td class="tg-baqh">-</td>
+        <td class="tg-baqh">TAK</td>
+        <td class="tg-baqh">-</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">okazanie</td>
+        <td class="tg-baqh">-</td>
+        <td class="tg-baqh">7</td>
+        <td class="tg-baqh">9</td>
+    </tr>
+    <tr>
+        <td class="tg-jogk">wygrana</td>
+        <td class="tg-baqh">-20</td>
+        <td class="tg-baqh">-120</td>
+        <td class="tg-baqh">+140</td>
+    </tr>
+</table>
+
+<h3>Turniej</h3>
+
+Turniej będzie polegał na rozegraniu gry pomiędzy każdą z trójek graczy. Gra
+składać się będzie z 1000 rozdań. Wygrywa gracz który sumarycznie wygra
+najwięcej żetonów.
+
+<h3>Szczegoly techniczne</h3>
+
+Nalezy zaimplementowac w jezyku Python (interpreter 2.7.2) klase Player
+implementujaca zachowanie kowboja. Klasa powinna implementowac nastepujace
+funkcje:
+
+<ul>
+<li><tt>name(i)</tt> -- funkcja wywolywana raz na poczatku gry.
+Jej argumentem jest numer który otrzymał gracz.
+
+</li><li><tt>hand(card)</tt> -- funkcja wywolywana na poczatku rozdania; jako argument
+przekazuje wartość otrzymanej karty.
+
+</li><li><tt>bet1(min)</tt> -- funkcja zwracająca wartość podbicia w pierwszej turze licytacji,
+min określa minimalną wartość podbicia
+
+</li><li><tt>bet1_info(bets)</tt> -- funkcja przyjmująca listę wylicytowanych wartości w pierwszej licytacji.
+
+</li><li><tt>call1(toCall)</tt> --- funkcja zwracająca boola określającego czy chcemy wyrównać wartość wylicytowaną w pierwszej turze.
+
+</li><li><tt>call1_info(toCall)</tt> --- funkcja przyjmująca listę booli określających czy dany gracz bierze udział w rozdaniu.
+
+</li><li><tt>bet2(min)</tt> -- funkcja zwracająca wartość podbicia w drugiej turze licytacji,
+min określa minimalną wartość podbicia
+
+</li><li><tt>bet2_info(bets)</tt> -- funkcja przyjmująca listę wylicytowanych wartości w drugiej licytacji.
+
+</li><li><tt>call2(toCall)</tt> --- funkcja zwracająca boola określającego czy chcemy wyrównać wartość wylicytowaną w drugiej turze.
+
+</li><li><tt>call2_info(toCall)</tt> --- funkcja przyjmująca listę booli określających czy dany gracz bierze udział w rozdaniu.
+
+</li><li><tt>showdown(cards)</tt> --- funkcja przyjmująca listę rąk innych graczy, przy okazaniu na zakończenie rozdania.
+
+</li><li><tt>result(winnings)</tt> --- funkcja przyjmująca podsumowującą listę z wygranymi/przegranymi żetonami
+
+</li></ul>
+
+</body>
+</html>
