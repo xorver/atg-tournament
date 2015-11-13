@@ -5,7 +5,7 @@ class Player:
     def name(self, index):
         self.me = index
         [self.opp1, self.opp2] = [i for i in range(3) if i != self.me]
-        self.stack = 200
+        self.stack = 300
 
     def hand(self, card):
         self.card = card
