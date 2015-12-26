@@ -94,12 +94,12 @@ def play_hand(players, scores):
     for i in range(3):
         try:
             bet[i] = players[i].bet1(BIG_BLIND)
-            if not valid_bet(bet[i], BIG_BLIND, STACK):
-                bet[i] = BIG_BLIND
-                in_game[i] = False
-                hand[i] = None
         except:
             message("EXCEPTION", "players[%i].bet1()" % i)
+        if not valid_bet(bet[i], BIG_BLIND, STACK):
+            bet[i] = BIG_BLIND
+            in_game[i] = False
+            hand[i] = None
 
     best_bet1 = max(bet)
 
@@ -114,15 +114,16 @@ def play_hand(players, scores):
     if hand_not_finished(in_game):
         for i in range(3):
             if in_game[i] and bet[i] != best_bet1:
+                calls = False
                 try:
                     calls = players[i].call1(best_bet1)
-                    if calls:
-                        bet[i] = best_bet1
-                    else:
-                        in_game[i] = False
-                        hand[i] = None
                 except:
                     message("EXCEPTION", "players[%i].call1()" % i)
+                if calls:
+                    bet[i] = best_bet1
+                else:
+                    in_game[i] = False
+                    hand[i] = None
 
     # pierwsza runda licytacji  - info o graczach w grze
     for i in range(3):
@@ -137,12 +138,12 @@ def play_hand(players, scores):
             if in_game[i]:
                 try:
                     bet[i] = players[i].bet2(best_bet1)
-                    if bet[i] not in range(best_bet1, STACK+1, 1):
-                        bet[i] = best_bet1
-                        in_game[i] = False
-                        hand[i] = None
                 except:
                     message("EXCEPTION", "players[%i].bet2()" % i)
+                if not valid_bet(bet[i], best_bet1, STACK):
+                    bet[i] = best_bet1
+                    in_game[i] = False
+                    hand[i] = None
 
     best_bet2 = max(bet)
 
@@ -157,15 +158,16 @@ def play_hand(players, scores):
     if hand_not_finished(in_game):
         for i in range(3):
             if in_game[i] and bet[i] != best_bet2:
+                calls = False
                 try:
                     calls = players[i].call2(best_bet2)
-                    if calls:
-                        bet[i] = best_bet2
-                    else:
-                        in_game[i] = False
-                        hand[i] = None
                 except:
                     message("EXCEPTION", "players[%i].call2()" % i)
+                if calls:
+                    bet[i] = best_bet2
+                else:
+                    in_game[i] = False
+                    hand[i] = None
 
     # druga runda licytacji  - info o  o graczach w grze
     for i in range(3):
